@@ -1,2 +1,16 @@
 oc login -u kubeadmin -p ${RHT_OCP4_KUBEADM_PASSWD} https://api.ocp4.example.com:6443
 oc create secret generic localusers  --from-file htpasswd=/home/student/DO280/labs/auth-provider/htpasswd  -n openshift-config
+oc adm policy add-cluster-role-to-user  cluster-admin admin
+oc get oauth cluster  -o yaml ~/DO280/labs/auth-provider/oauth.yaml
+
+spec:
+identityProviders:
+- htpasswd:
+fileData:
+name: localusers
+mappingMethod: claim
+name: myusers
+type: HTPasswd
+
+
+oc replace -f ~/DO280/labs/auth-provider/oauth.yaml
