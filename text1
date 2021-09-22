@@ -1,1 +1,2 @@
 oc login -u kubeadmin -p ${RHT_OCP4_KUBEADM_PASSWD} https://api.ocp4.example.com:6443
+oc create secret generic localusers  --from-file htpasswd=/home/student/DO280/labs/auth-provider/htpasswd  -n openshift-config
